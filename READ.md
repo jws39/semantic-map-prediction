@@ -37,7 +37,7 @@ Clone the repository and install other requirements:
 
 
 ```
-git clone 
+git clone https://github.com/jws39/semantic-map-prediction.git
 ```
 
 
