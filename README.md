@@ -1,10 +1,10 @@
 ## RSMPNet: Relationship Guided Semantic Map Prediction
 
-This is a PyTorch implementation of the WACV24 paper, RSMPNet: Relationship Guided Semantic Map Prediction.
+Jingwen Sun, Jing Wu, Ze Ji, Yu-Kun Lai
+
+Winter Conference on Applications of Computer Vision (WACV) 2024
 
 ### Installing Dependencies
-
-We install dependencies following L2M:
 
 Create conda environment:
 
@@ -16,16 +16,13 @@ conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 Installing habitat-sim and habitat-lab:
 
 ```` 
-conda create -n habitat python=3.6 cmake=3.14.0
-conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
-
 git clone --branch v0.1.7 https://github.com/facebookresearch/habitat-sim.git
-cd habitat-sim; pip install -r requirements.txt; python setup.py build_ext --parallel 2 install --headless --with-cuda
+cd habitat-sim; pip install -r requirements.txt
+python setup.py build_ext --parallel 2 install --headless --with-cuda
 
 git clone --branch v0.1.7 https://github.com/facebookresearch/habitat-lab.git
-cd habitat-lab; pip install --no-cache-dir h5py; pip install -r requirements.txt; python setup.py develop --all
-
-pip install -r requirements.txt
+cd habitat-lab; pip install -r requirements.txt 
+python setup.py develop --all
 ````
 
 
@@ -34,15 +31,29 @@ pip install -r requirements.txt
 
 Clone the repository and install other requirements:
 
-
-
 ```
 git clone https://github.com/jws39/semantic-map-prediction.git
+cd semantic-map-prediction; pip install -r requirements.txt
 ```
 
+Download semantic map prediction datasets [here](https://www.dropbox.com/scl/fi/4dpko4s8fhm1bj3lbx9ng/datasets.zip?rlkey=nuvpibd5cus5cioiqtk3v1fz2&dl=0), and put the folder `smp` in in the following format:
 
-
-Download semantic map prediction datasets [here](https://www.dropbox.com/scl/fi/4dpko4s8fhm1bj3lbx9ng/datasets.zip?rlkey=nuvpibd5cus5cioiqtk3v1fz2&dl=0).
+```
+your-datasets-path/
+  mp3d_objnav_episodes_tmp/
+    train/
+      1LXtFkjw3qL/
+        ep_1_40970_1LXtFkjw3qL.npz
+        ...
+    val/
+      VVfe2KiqLaN/
+        ep_1_16987_VVfe2KiqLaN.npz
+        ...
+    test/
+      2azQ1b91cZZ/
+        ep_1_1_2azQ1b91cZZ.npz
+        ...
+```
 
 
 
@@ -51,29 +62,31 @@ Download semantic map prediction datasets [here](https://www.dropbox.com/scl/fi/
 #### Training
 
 ```
-python main.py --name smp_test --batch_size 1 --num_workers 1 --is_train --log_dir /disk2/Code/L2M/wacv_code/3070/ --stored_episodes_dir /home/jignwen/Code/MapPrediction/data/scene_datasets/mp3d/L2M/data_v5/mp3d_objnav_episodes_tmp/ --num_epochs 40
+python main.py --name smp_test --batch_size 1 --num_workers 1 --is_train --log_dir you-log-path --stored_episodes_dir you-datasets-path/mp3d_objnav_episodes_tmp/ --num_epochs 50
 ```
 
 
 
 #### Downloading pre-trained models: 
 
-You can download our pre-trained model [here](https://www.dropbox.com/scl/fo/annakmz80bh6kl2ztewqa/h?rlkey=vbgf71f6sfl2r516mso79bmic&dl=0).
+You can download our pre-trained model [here](https://www.dropbox.com/scl/fo/annakmz80bh6kl2ztewqa/h?rlkey=vbgf71f6sfl2r516mso79bmic&dl=0), and put the folder `smp` in in the following format:
 
-
+```
+your-model-path/
+  smp/
+    model1/
+      smp.pt
+```
 
 #### Evaluation:
 
 ```
-python main.py --name epoch48 --ensemble_dir ~/Code/L2M/semantic-map-prediction/trained_model/smp/ --log_dir /disk2/Code/L2M/wacv_code/3070/test/ --sem_map_test --stored_episodes_dir /home/jignwen/Code/MapPrediction/data/scene_datasets/mp3d/L2M/data_v5/mp3d_objnav_episodes_tmp/ 
+python main.py --name exp_name --ensemble_dir your-model-path/smp/ --log_dir your-log-dir --sem_map_test --stored_episodes_dir you-datasets-path/mp3d_objnav_episodes_tmp/ 
 ```
 
+## Related Projects
 
-
-
-
-
-
+- This project builds on the [Learning to Map for Active Semantic Goal Navigation](https://github.com/ggeorgak11/L2M#learning-to-map-for-active-semantic-goal-navigation) paper and [Learning-Semantic-Associations-for-Mirror-Detection](https://github.com/guanhuankang/Learning-Semantic-Associations-for-Mirror-Detection) paper.
 
 
 
