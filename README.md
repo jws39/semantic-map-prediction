@@ -69,7 +69,7 @@ python main.py --name smp_test --batch_size 1 --num_workers 1 --is_train --log_d
 
 #### Downloading pre-trained models: 
 
-You can download our pre-trained model [here](https://www.dropbox.com/scl/fo/annakmz80bh6kl2ztewqa/h?rlkey=vbgf71f6sfl2r516mso79bmic&dl=0), and put the folder `smp` in in the following format:
+You can download our pre-trained model [here](https://www.dropbox.com/scl/fo/z2kj03w1eq86sx33n91h2/h?rlkey=6wlpclxzblollb4wyhkf8i6a2&dl=0), and put the folder `smp` in in the following format:
 
 ```
 your-model-path/
